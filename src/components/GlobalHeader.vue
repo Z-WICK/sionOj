@@ -16,7 +16,7 @@
             <div class="title">SionOj</div>
           </div>
         </a-menu-item>
-        <a-menu-item v-for="item in routes" :key="item.path"
+        <a-menu-item v-for="item in visibleRoutes" :key="item.path"
           >{{ item.name }}
         </a-menu-item>
       </a-menu>
@@ -34,6 +34,12 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 const router = useRouter();
+const visibleRoutes = routes.filter((item, index) => {
+  if (item.meta?.hideInMenu) {
+    return false;
+  }
+  return true;
+});
 
 // 默认主页
 const selectedKeys = ref(["/"]);
