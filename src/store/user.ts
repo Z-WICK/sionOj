@@ -9,7 +9,6 @@ export default {
   state: () => ({
     loginUser: {
       userName: "未登录",
-      userRole: ACCESS_ENUM.NOT_LOGIN,
     },
   }),
   // 定义模块的 actions，用于处理异步操作或复杂逻辑
