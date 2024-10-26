@@ -1,5 +1,6 @@
 import { StoreOptions } from "vuex";
 import ACCESS_ENUM from "@/access/accessEnum";
+import { UserControllerService } from "../../generated";
 
 export default {
   // 启用命名空间，防止模块间的命名冲突
@@ -14,10 +15,17 @@ export default {
   // 定义模块的 actions，用于处理异步操作或复杂逻辑
   actions: {
     // 获取登录用户信息的 action
-    getLoginUser({ commit, state }, payload) {
+    async getLoginUser({ commit, state }, payload) {
+      const res = await UserControllerService.getLoginUserUsingGet();
+      if (res.code === 0) {
+        commit("updateUser", res.data);
+      } else {
+        commit("updateUser", {
+          ...state.loginUser,
+          userRole: ACCESS_ENUM.NOT_LOGIN,
+        });
+      }
       // todo 改为从远程请求获取登录信息
-      // 这里通过 commit 提交一个假数据 'sion'，模拟更新用户状态
-      commit("updateUser", payload);
     },
   },
   // 定义 mutations，用于直接修改 state
