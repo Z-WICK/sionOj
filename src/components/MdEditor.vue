@@ -1,5 +1,10 @@
 <template>
-  <Editor :value="value" :plugins="plugins" @change="handleChange" />
+  <Editor
+    :value="value"
+    :mode="mode"
+    :plugins="plugins"
+    @change="handleChange"
+  />
 </template>
 
 <script setup lang="ts">
@@ -22,6 +27,7 @@ const plugins = [
   highlight(),
   // Add more plugins here
 ];
+
 /**
  * 给组件指定初始值
  */
@@ -34,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 </script>
 
-<style scoped>
+<style>
 .bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy-right:last-child {
   display: none;
 }
